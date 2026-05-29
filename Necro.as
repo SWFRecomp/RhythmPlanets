@@ -1,5 +1,3 @@
-import flash.display.BitmapData;
-
 class Necro
 {
 	var go: GameObject;
@@ -15,18 +13,21 @@ class Necro
 		go.mc._yscale = 200;
 	}
 	
-	function update(deltaTime: Number)
+	function update(deltaTime: Number): Void
 	{
 		go.update(deltaTime);
+		
+		go.mc._rotation += 10*deltaTime*6;
+		go.mc._rotation %= 360;
 	}
 	
-	function right()
+	function right(): Void
 	{
-		go.mc._x += 2;
+		go.mc._x += 10;
 	}
 	
-	function left()
+	function left(): Void
 	{
-		go.mc._x -= 2;
+		go.mc._x -= 10;
 	}
 }

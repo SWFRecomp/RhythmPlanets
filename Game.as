@@ -1,56 +1,45 @@
 class Game
 {
-	static var n: Necro;
+	static var currentScene: Scene;
+	static var music: Sound;
+	static var musicStartedMS: Number;
 	
-	var lastMS: Number;
+	static var lastMS: Number;
 	
-	function Game(root: MovieClip)
+	static function init(root: MovieClip): Void
 	{
 		recompSetDisplayScale(4);
 		
-		n = new Necro(root, "guy", "necro", 1);
+		Input.init();
 		
-		var s: Sound = new Sound();
+		music = new Sound();
 		
-		var l: Object = new Object();
-		
-		l.onKeyDown = function()
-		{
-			if (Key.getCode() == Key.RIGHT)
-			{
-				Game.n.right();
-			}
-		};
-		
-		l.onKeyUp = function()
-		{
-			if (Key.getCode() == Key.RIGHT)
-			{
-				Game.n.left();
-			}
-		};
-		
-		Key.addListener(l);
-		
-		s.onLoad = function(success: Boolean)
+		music.onLoad = function(success: Boolean)
 		{
 			if (success)
 			{
-				s.start(0, 2);
+				Game.music.start();
+				Game.musicStartedMS = getTimer();
 			}
 		};
 		
-		s.loadSound("sorc.mp3", false);
+		music.loadSound("timing.mp3", false);
 		
 		lastMS = getTimer();
+		
+		currentScene = new Scene(root);
+		currentScene.load();
 	}
 	
-	function update(root: MovieClip)
+	static function update(root: MovieClip): Void
 	{
 		var now: Number = getTimer();
 		var diffSeconds: Number = (now - lastMS)/1000;
 		
-		n.update(diffSeconds);
+		if (currentScene != undefined)
+		{
+			currentScene.update(diffSeconds);
+		}
 		
 		lastMS = now;
 	}

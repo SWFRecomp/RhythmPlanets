@@ -1,14 +1,12 @@
 class Main
 {
-	static var app: Game;
-	
-	static function main(root: MovieClip)
+	static function main(root: MovieClip): Void
 	{
-		app = new Game(root);
+		Game.init(root);
 		
 		root.onEnterFrame = function()
 		{
-			Main.app.update(this);
+			Game.update(this);
 		};
 	}
 }
