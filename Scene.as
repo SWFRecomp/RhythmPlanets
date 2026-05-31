@@ -19,6 +19,19 @@ class Scene
 	{
 		var n: BarSpawner = new BarSpawner(root);
 		addObject(n);
+		
+		var names: Array = new Array();
+		
+		for (var i = 0; i < 4; ++i)
+		{
+			names.push("sb" + i);
+		}
+		
+		var bg: GameObject = new GameObject(root, names, "bgMC", 1);
+		addObject(bg);
+		bg.playAnimation = true;
+		
+		bg.translate(256/2, 192/2);
 	}
 	
 	function update(deltaTime: Number)

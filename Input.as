@@ -63,7 +63,15 @@ class Input
 	{
 		if (Game.currentScene != undefined)
 		{
+			var n: ListNode = Game.currentScene.objects.head;
 			
+			while (n != null)
+			{
+				var o: Object = n.value;
+				o.right();
+				
+				n = n.next;
+			}
 		}
 	}
 	
@@ -71,7 +79,15 @@ class Input
 	{
 		if (Game.currentScene != undefined)
 		{
+			var n: ListNode = Game.currentScene.objects.head;
 			
+			while (n != null)
+			{
+				var o: Object = n.value;
+				o.left();
+				
+				n = n.next;
+			}
 		}
 	}
 	

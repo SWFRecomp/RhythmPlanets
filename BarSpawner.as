@@ -6,20 +6,21 @@ class BarSpawner
 	
 	function BarSpawner(root: MovieClip)
 	{
-		nextDepth = 1;
+		nextDepth = 2;
 		x = 256/2;
 		y = 192/2;
 		
 		var cl: ConductorListener = new ConductorListener();
 		
-		cl.onBeat = function(deltaTime: Number, target: Object)
+		cl.onBeat = function(target: BarSpawner)
 		{
 			var bar: Bar = new Bar(_root, target.nextDepth);
+			bar.parent = target;
 			target.nextDepth += 1;
 			
-			if (target.nextDepth == 10)
+			if (target.nextDepth == 11)
 			{
-				target.nextDepth = 1;
+				target.nextDepth = 2;
 			}
 			
 			bar.go.mc._x = target.x;

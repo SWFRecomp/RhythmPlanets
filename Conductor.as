@@ -10,7 +10,7 @@ class Conductor
 		bpm = new BPM(newBPM);
 		
 		var spb: Number = bpm.secondsPerBeat;
-		lastBeatMS = Game.musicStartedMS - bpm.secondsPerBeat*1000;
+		lastBeatMS = Game.musicStartedMS - bpm.secondsPerBeat*1000/2;
 		
 		_listeners = new List();
 	}
@@ -22,12 +22,13 @@ class Conductor
 		
 		if (diff >= bpm.secondsPerBeat)
 		{
+			trace("beat");
 			var n: ListNode = _listeners.head;
 			
 			while (n != null)
 			{
 				var l = n.value;
-				l.onBeat(deltaTime, l.target);
+				l.onBeat(l.target);
 				
 				n = n.next;
 			}

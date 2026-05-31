@@ -4,7 +4,10 @@ class Necro
 	
 	function Necro(root: MovieClip, bitmapName: String, name: String, depth: Number)
 	{
-		go = new GameObject(root, bitmapName, name, depth);
+		var names: Array = new Array();
+		names.push(bitmapName);
+		
+		go = new GameObject(root, names, name, depth);
 		
 		go.mc._x = 256/2;
 		go.mc._y = 192/2;

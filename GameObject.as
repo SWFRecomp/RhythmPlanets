@@ -4,24 +4,65 @@ class GameObject
 {
 	var mc: MovieClip;
 	
+	var sprites: Array;
+	var nextSprite: Number;
+	var lastSpriteMS: Number;
+	
+	var playAnimation: Boolean;
+	
 	var xFrac: Number;
 	var yFrac: Number;
 	
-	function GameObject(root: MovieClip, bitmapName: String, name: String, depth: Number)
+	function GameObject(root: MovieClip, bitmapNames: Array, name: String, depth: Number)
 	{
 		mc = root.createEmptyMovieClip(name, depth);
 		
-		var bm: BitmapData = BitmapData.loadBitmap(bitmapName);
+		sprites = new Array();
+		
+		for (var i = 0; i < bitmapNames.length; ++i)
+		{
+			sprites.push(BitmapData.loadBitmap(bitmapNames[i]));
+		}
+		
+		nextSprite = 0;
+		var firstSprite: BitmapData = sprites[nextSprite];
+		lastSpriteMS = getTimer();
+		nextSprite += 1;
+		
+		playAnimation = false;
 		
 		mc.createEmptyMovieClip("inner", 1);
 		
-		mc.inner.attachBitmap(bm, 1);
+		mc.inner.attachBitmap(firstSprite, 1);
 		
-		mc.inner._x = -bm.width/2;
-		mc.inner._y = -bm.height/2;
+		mc.inner._x = -firstSprite.width/2;
+		mc.inner._y = -firstSprite.height/2;
 		
 		xFrac = 0;
 		yFrac = 0;
+	}
+	
+	function update(deltaTime: Number): Void
+	{
+		if (!playAnimation)
+		{
+			return;
+		}
+		
+		var now: Number = getTimer();
+		
+		if (now - lastSpriteMS > 50)
+		{
+			mc.inner.attachBitmap(sprites[nextSprite], 1);
+			nextSprite += 1;
+			nextSprite %= sprites.length;
+			lastSpriteMS = now;
+		}
+	}
+	
+	function rotation(): Number
+	{
+		return mc._rotation;
 	}
 	
 	function translate(x: Number, y: Number): Void
@@ -48,9 +89,20 @@ class GameObject
 		mc._y += yInt;
 	}
 	
-	function update(deltaTime: Number): Void
+	function rotate(angle: Number): Void
 	{
-		
+		mc._rotation += angle;
+	}
+	
+	function setRotation(angle: Number): Void
+	{
+		mc._rotation = angle;
+	}
+	
+	function scale(x: Number, y: Number): Void
+	{
+		mc._xscale *= x;
+		mc._yscale *= y;
 	}
 	
 	function right(): Void
