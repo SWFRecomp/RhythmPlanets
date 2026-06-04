@@ -77,6 +77,11 @@ class Input
 	
 	static function onRightReleased()
 	{
+		
+	}
+	
+	static function onLeftPressed()
+	{
 		if (Game.currentScene != undefined)
 		{
 			var n: ListNode = Game.currentScene.objects.head;
@@ -91,13 +96,8 @@ class Input
 		}
 	}
 	
-	static function onLeftPressed()
-	{
-		trace("down");
-	}
-	
 	static function onLeftReleased()
 	{
-		trace("up");
+		
 	}
 }

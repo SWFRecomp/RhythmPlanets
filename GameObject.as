@@ -9,6 +9,7 @@ class GameObject
 	var lastSpriteMS: Number;
 	
 	var playAnimation: Boolean;
+	var animationFPS: Number;
 	
 	var xFrac: Number;
 	var yFrac: Number;
@@ -19,7 +20,7 @@ class GameObject
 		
 		sprites = new Array();
 		
-		for (var i = 0; i < bitmapNames.length; ++i)
+		for (var i: Number = 0; i < bitmapNames.length; ++i)
 		{
 			sprites.push(BitmapData.loadBitmap(bitmapNames[i]));
 		}
@@ -30,6 +31,7 @@ class GameObject
 		nextSprite += 1;
 		
 		playAnimation = false;
+		animationFPS = 20;
 		
 		mc.createEmptyMovieClip("inner", 1);
 		
@@ -51,7 +53,7 @@ class GameObject
 		
 		var now: Number = getTimer();
 		
-		if (now - lastSpriteMS > 50)
+		if (now - lastSpriteMS > 1000/animationFPS)
 		{
 			mc.inner.attachBitmap(sprites[nextSprite], 1);
 			nextSprite += 1;

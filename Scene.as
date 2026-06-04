@@ -2,6 +2,8 @@ class Scene
 {
 	var root: MovieClip;
 	
+	var music: Sound;
+	var musicStartedMS: Number;
 	var conductor: Conductor;
 	
 	var objects: List;
@@ -10,19 +12,33 @@ class Scene
 	{
 		this.root = root;
 		
-		conductor = new Conductor(134);
+		music = new Sound();
+		musicStartedMS = Infinity;
 		
 		objects = new List();
 	}
 	
 	function load(): Void
 	{
-		var n: BarSpawner = new BarSpawner(root);
-		addObject(n);
+		music.onLoad = function(success: Boolean)
+		{
+			if (success)
+			{
+				Game.currentScene.music.start();
+				Game.currentScene.musicStartedMS = getTimer();
+			}
+		};
+		
+		music.loadSound("antinomy.mp3", false);
+		
+		conductor = new Conductor(135);
+		
+		var stm: STMaster = new STMaster(root, 60, 256/2, 192/2);
+		addObject(stm);
 		
 		var names: Array = new Array();
 		
-		for (var i = 0; i < 4; ++i)
+		for (var i: Number = 0; i < 4; ++i)
 		{
 			names.push("sb" + i);
 		}

@@ -1,8 +1,6 @@
 class Game
 {
 	static var currentScene: Scene;
-	static var music: Sound;
-	static var musicStartedMS: Number;
 	
 	static var lastMS: Number;
 	
@@ -11,19 +9,6 @@ class Game
 		recompSetDisplayScale(4);
 		
 		Input.init();
-		
-		music = new Sound();
-		
-		music.onLoad = function(success: Boolean)
-		{
-			if (success)
-			{
-				Game.music.start();
-				Game.musicStartedMS = getTimer();
-			}
-		};
-		
-		music.loadSound("timing.mp3", false);
 		
 		lastMS = getTimer();
 		
