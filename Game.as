@@ -2,6 +2,7 @@ class Game
 {
 	static var currentScene: Scene;
 	
+	static var now: Number;
 	static var lastMS: Number;
 	
 	static function init(root: MovieClip): Void
@@ -11,6 +12,7 @@ class Game
 		Input.init();
 		
 		lastMS = getTimer();
+		now = lastMS;
 		
 		currentScene = new Scene(root);
 		currentScene.load();
@@ -18,7 +20,7 @@ class Game
 	
 	static function update(root: MovieClip): Void
 	{
-		var now: Number = getTimer();
+		now = getTimer();
 		var diffSeconds: Number = (now - lastMS)/1000;
 		
 		if (currentScene != undefined)

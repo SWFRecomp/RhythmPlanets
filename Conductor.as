@@ -1,6 +1,8 @@
 class Conductor
 {
 	var bpm: BPM;
+	
+	var lastQuarterBeatMS: Number;
 	var lastBeatMS: Number;
 	
 	private var _listeners: List;
@@ -17,8 +19,27 @@ class Conductor
 	
 	function update(deltaTime: Number): Void
 	{
-		var now: Number = getTimer();
-		var diff: Number = (now - lastBeatMS)/1000;
+		var diffQuarter: Number = (Game.now - lastQuarterBeatMS)/1000;
+		var diff: Number = (Game.now - lastBeatMS)/1000;
+		
+		if (diffQuarter >= bpm.secondsPerBeat/4)
+		{
+			var n: ListNode = _listeners.head;
+			
+			while (n != null)
+			{
+				var l: ConductorListener = ConductorListener(n.value);
+				
+				if (l.onQuarterBeat)
+				{
+					l.onQuarterBeat(l.target);
+				}
+				
+				n = n.next;
+			}
+			
+			lastQuarterBeatMS += bpm.secondsPerBeat*1000/4;
+		}
 		
 		if (diff >= bpm.secondsPerBeat)
 		{
@@ -27,7 +48,11 @@ class Conductor
 			while (n != null)
 			{
 				var l: ConductorListener = ConductorListener(n.value);
-				l.onBeat(l.target);
+				
+				if (l.onBeat)
+				{
+					l.onBeat(l.target);
+				}
 				
 				n = n.next;
 			}

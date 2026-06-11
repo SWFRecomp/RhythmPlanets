@@ -1,10 +1,13 @@
 import flash.geom.ColorTransform;
+import flash.geom.Transform;
 
 class ST
 {
 	var parent: STMaster;
 	
 	var go: GameObject;
+	
+	var dir: Boolean;
 	
 	var shapeState: Boolean;
 	
@@ -26,18 +29,38 @@ class ST
 		}
 		
 		go = new GameObject(root, names, "bar" + depth, depth);
-		go.playAnimation = true;
+		go.playAnimation = false;
+		
+		dir = false;
 		
 		shapeState = true;
 		
-		var ct: ColorTransform = new ColorTransform(1, 0, 0, 1, 0, 0, 0, 0);
+		var t: Transform = new Transform(go.mc.inner);
+		//~ t.colorTransform.redMultiplier = 0;
+		//~ t.colorTransform.greenMultiplier = 0;
 		
 		swinging = 0;
 	}
 	
 	function update(deltaTime: Number): Void
 	{
+		Game.now += deltaTime;
+		
 		go.update(deltaTime);
+		
+		if (!dir)
+		{
+			//~ go.mc.inner.transform.colorTransform.redMultiplier += 0.005;
+			//~ go.mc.inner.transform.colorTransform.blueMultiplier -= 0.005;
+			//~ go.mc.inner.transform.colorTransform.alphaMultiplier -= 0.005;
+			
+			//~ if (go.mc.inner.transform.colorTransform.alphaMultiplier < 0)
+			//~ {
+				//~ go.mc.inner.transform.colorTransform.redMultiplier = 1;
+				//~ go.mc.inner.transform.colorTransform.blueMultiplier = 0;
+				//~ go.mc.inner.transform.colorTransform.alphaMultiplier = 0;
+			//~ }
+		}
 		
 		if (go.nextSprite == 8)
 		{
@@ -58,8 +81,7 @@ class ST
 		
 		if (swinging == 1)
 		{
-			var now: Number = getTimer();
-			var duration: Number = (now - lastPointMS)/1000;
+			var duration: Number = (Game.now - lastPointMS)/1000;
 			
 			var rotation: Number = Tweener.lerp(0, 45, duration/0.035);
 			
@@ -75,8 +97,7 @@ class ST
 		
 		if (swinging == 2)
 		{
-			var now: Number = getTimer();
-			var duration: Number = (now - lastPointMS)/1000;
+			var duration: Number = (Game.now - lastPointMS)/1000;
 			
 			var rotation: Number = Tweener.lerp(45, 0, duration/0.05);
 			
@@ -98,7 +119,7 @@ class ST
 		//~ }
 		
 		//~ swinging = 1;
-		//~ lastPointMS = getTimer();
+		//~ lastPointMS = Game.now;
 	}
 	
 	function left(): Void

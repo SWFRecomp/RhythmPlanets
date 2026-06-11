@@ -46,6 +46,11 @@ class STMaster
 		
 		var cl: ConductorListener = new ConductorListener();
 		
+		cl.onQuarterBeat = function(obj: STMaster)
+		{
+			
+		};
+		
 		cl.onBeat = function(obj: STMaster)
 		{
 			
@@ -62,8 +67,7 @@ class STMaster
 		{
 			var duration: Number = 0.075;
 			
-			var now: Number = getTimer();
-			var diff: Number = (now - lastRotateMS)/1000;
+			var diff: Number = (Game.now - lastRotateMS)/1000;
 			currentRotation = Tweener.lerp(lastRotation, targetRotation, diff/duration);
 			
 			if (diff >= duration)
@@ -86,15 +90,25 @@ class STMaster
 	
 	function right(): Void
 	{
+		if (currentRotation != targetRotation)
+		{
+			return;
+		}
+		
 		lastRotation = currentRotation;
 		targetRotation = currentRotation + 2*Math.PI/sts.length;
-		lastRotateMS = getTimer();
+		lastRotateMS = Game.now;
 	}
 	
 	function left(): Void
 	{
+		if (currentRotation != targetRotation)
+		{
+			return;
+		}
+		
 		lastRotation = currentRotation;
 		targetRotation = currentRotation - 2*Math.PI/sts.length;
-		lastRotateMS = getTimer();
+		lastRotateMS = Game.now;
 	}
 }

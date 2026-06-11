@@ -27,7 +27,8 @@ class GameObject
 		
 		nextSprite = 0;
 		var firstSprite: BitmapData = sprites[nextSprite];
-		lastSpriteMS = getTimer();
+		
+		lastSpriteMS = Game.now;
 		nextSprite += 1;
 		
 		playAnimation = false;
@@ -51,14 +52,12 @@ class GameObject
 			return;
 		}
 		
-		var now: Number = getTimer();
-		
-		if (now - lastSpriteMS > 1000/animationFPS)
+		if (Game.now - lastSpriteMS > 1000/animationFPS)
 		{
 			mc.inner.attachBitmap(sprites[nextSprite], 1);
 			nextSprite += 1;
 			nextSprite %= sprites.length;
-			lastSpriteMS = now;
+			lastSpriteMS = Game.now;
 		}
 	}
 	
