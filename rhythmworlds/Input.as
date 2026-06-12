@@ -1,4 +1,6 @@
-class Input
+import rhythmworlds.*;
+
+class rhythmworlds.Input
 {
 	static var leftDown: Boolean;
 	static var rightDown: Boolean;

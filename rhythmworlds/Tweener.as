@@ -1,4 +1,4 @@
-class Tweener
+class rhythmworlds.Tweener
 {
 	private function Tweener()
 	{

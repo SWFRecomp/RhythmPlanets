@@ -1,4 +1,6 @@
-class Scene
+import rhythmworlds.*;
+
+class rhythmworlds.Scene
 {
 	var root: MovieClip;
 	
@@ -29,9 +31,9 @@ class Scene
 			}
 		};
 		
-		music.loadSound("antinomy.mp3", false);
+		music.loadSound("timing.mp3", false);
 		
-		conductor = new Conductor(135);
+		conductor = new Conductor(134);
 		
 		var stm: STMaster = new STMaster(root, 60, 256/2, 192/2);
 		addObject(stm);

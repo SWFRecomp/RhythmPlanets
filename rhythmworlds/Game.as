@@ -1,4 +1,6 @@
-class Game
+import rhythmworlds.*;
+
+class rhythmworlds.Game
 {
 	static var currentScene: Scene;
 	

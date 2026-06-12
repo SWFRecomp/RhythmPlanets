@@ -1,4 +1,4 @@
-class BPM
+class rhythmworlds.BPM
 {
 	var bpm: Number;
 	

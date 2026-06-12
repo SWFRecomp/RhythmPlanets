@@ -1,4 +1,6 @@
-class STMaster
+import rhythmworlds.*;
+
+class rhythmworlds.STMaster
 {
 	var sts: Array;
 	
@@ -46,9 +48,9 @@ class STMaster
 		
 		var cl: ConductorListener = new ConductorListener();
 		
-		cl.onQuarterBeat = function(obj: STMaster)
+		cl.onQuarterBeat = function(obj: STMaster, beatId: Number, command: Number)
 		{
-			
+			trace("beat: " + beatId + ", command: " + command);
 		};
 		
 		cl.onBeat = function(obj: STMaster)
@@ -90,11 +92,6 @@ class STMaster
 	
 	function right(): Void
 	{
-		if (currentRotation != targetRotation)
-		{
-			return;
-		}
-		
 		lastRotation = currentRotation;
 		targetRotation = currentRotation + 2*Math.PI/sts.length;
 		lastRotateMS = Game.now;
@@ -102,11 +99,6 @@ class STMaster
 	
 	function left(): Void
 	{
-		if (currentRotation != targetRotation)
-		{
-			return;
-		}
-		
 		lastRotation = currentRotation;
 		targetRotation = currentRotation - 2*Math.PI/sts.length;
 		lastRotateMS = Game.now;

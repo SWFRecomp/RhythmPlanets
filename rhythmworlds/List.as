@@ -1,4 +1,6 @@
-class List
+import rhythmworlds.*;
+
+class rhythmworlds.List
 {
 	var head: ListNode;
 	var tail: ListNode;

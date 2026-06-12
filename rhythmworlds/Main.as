@@ -1,4 +1,6 @@
-class Main
+import rhythmworlds.*;
+
+class rhythmworlds.Main
 {
 	static function main(root: MovieClip): Void
 	{

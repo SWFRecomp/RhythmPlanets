@@ -1,7 +1,9 @@
 import flash.geom.ColorTransform;
 import flash.geom.Transform;
 
-class ST
+import rhythmworlds.*;
+
+class rhythmworlds.ST
 {
 	var parent: STMaster;
 	

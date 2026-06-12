@@ -1,4 +1,4 @@
-class ListNode
+class rhythmworlds.ListNode
 {
 	var value: Object;
 	var next: ListNode;

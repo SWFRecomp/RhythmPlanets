@@ -1,6 +1,8 @@
 import flash.display.BitmapData;
 
-class GameObject
+import rhythmworlds.*;
+
+class rhythmworlds.GameObject
 {
 	var mc: MovieClip;
 	
